@@ -53290,20 +53290,30 @@ def fin_profit_loss(request):
 
             invoice = Fin_Invoice.objects.filter(Company_id=cmp,invoice_date__range=(start_date, end_date))
 
-            if invoice:
-                for i in invoice:
-                    total_discount_invoice = Fin_Invoice_Items.objects.filter(Invoice_id=i.id).aggregate(total_discount_invoice=Sum('discount'))['total_discount_invoice'] or 0
-            else:
+            if invoice == None:
+
                 total_discount_invoice = 0
+                
+            else:
+
+                total_discount_invoice = 0
+                for i in invoice:
+                    total_discount_invoices = Fin_Invoice_Items.objects.filter(Invoice_id=i.id).aggregate(total_discount_invoice=Sum('discount'))['total_discount_invoice'] or 0
+                    total_discount_invoice += float(total_discount_invoices)
 
             recurr_invoice = Fin_Recurring_Invoice.objects.filter(Company_id=cmp,start_date__range=(start_date, end_date))
 
-            if recurr_invoice:
+            if recurr_invoice == None:
 
-                for r in recurr_invoice:
-                    total_discount_recurringinvoice = Fin_Recurring_Invoice_Items.objects.filter(RecInvoice_id=r.id).aggregate(total_discount_recurringinvoice=Sum('discount'))['total_discount_recurringinvoice'] or 0
+                total_discount_recurringinvoice = 0  
+
             else:
-                total_discount_recurringinvoice = 0    
+
+                total_discount_recurringinvoice = 0
+                
+                for r in recurr_invoice:
+                    total_discount_recurringinvoices = Fin_Recurring_Invoice_Items.objects.filter(RecInvoice_id=r.id).aggregate(total_discount_recurringinvoice=Sum('discount'))['total_discount_recurringinvoice'] or 0
+                    total_discount_recurringinvoice += float(total_discount_recurringinvoices)
             
             total_discount_paid = int(total_discount_invoice) + int(total_discount_recurringinvoice)
 
@@ -53362,22 +53372,33 @@ def fin_profit_loss(request):
 
     invoice = Fin_Invoice.objects.filter(Company_id=cmp)
 
-    if invoice:
-        for i in invoice:
-            total_discount_invoice = Fin_Invoice_Items.objects.filter(Invoice_id=i.id).aggregate(total_discount_invoice=Sum('discount'))['total_discount_invoice'] or 0
-    else:
+    if invoice == None:
+
         total_discount_invoice = 0
+        
+    else:
+
+        total_discount_invoice = 0
+        for i in invoice:
+            total_discount_invoices = Fin_Invoice_Items.objects.filter(Invoice_id=i.id).aggregate(total_discount_invoice=Sum('discount'))['total_discount_invoice'] or 0
+            total_discount_invoice += float(total_discount_invoices)
 
     recurr_invoice = Fin_Recurring_Invoice.objects.filter(Company_id=cmp)
 
-    if recurr_invoice:
+    if recurr_invoice == None:
 
-        for r in recurr_invoice:
-            total_discount_recurringinvoice = Fin_Recurring_Invoice_Items.objects.filter(RecInvoice_id=r.id).aggregate(total_discount_recurringinvoice=Sum('discount'))['total_discount_recurringinvoice'] or 0
+        total_discount_recurringinvoice = 0  
+
     else:
-        total_discount_recurringinvoice = 0    
-    
+
+        total_discount_recurringinvoice = 0
+        
+        for r in recurr_invoice:
+            total_discount_recurringinvoices = Fin_Recurring_Invoice_Items.objects.filter(RecInvoice_id=r.id).aggregate(total_discount_recurringinvoice=Sum('discount'))['total_discount_recurringinvoice'] or 0
+            total_discount_recurringinvoice += float(total_discount_recurringinvoices)
+
     total_discount_paid = int(total_discount_invoice) + int(total_discount_recurringinvoice)
+    print(total_discount_invoice,total_discount_recurringinvoice)
 
     indirect_expenses = Fin_Expense.objects.filter(Company_id=cmp)
     total_indirect_expenses = Fin_Expense.objects.filter(Company_id=cmp).aggregate(total_indirect_expenses=Sum('amount'))['total_indirect_expenses'] or 0
@@ -53457,20 +53478,30 @@ def fin_profitloss_mail(request):
 
             invoice = Fin_Invoice.objects.filter(Company_id=cmp,invoice_date__range=(start_date, end_date))
 
-            if invoice:
-                for i in invoice:
-                    total_discount_invoice = Fin_Invoice_Items.objects.filter(Invoice_id=i.id).aggregate(total_discount_invoice=Sum('discount'))['total_discount_invoice'] or 0
-            else:
+            if invoice == None:
+
                 total_discount_invoice = 0
+                
+            else:
+
+                total_discount_invoice = 0
+                for i in invoice:
+                    total_discount_invoices = Fin_Invoice_Items.objects.filter(Invoice_id=i.id).aggregate(total_discount_invoice=Sum('discount'))['total_discount_invoice'] or 0
+                    total_discount_invoice += float(total_discount_invoices)
 
             recurr_invoice = Fin_Recurring_Invoice.objects.filter(Company_id=cmp,start_date__range=(start_date, end_date))
 
-            if recurr_invoice:
+            if recurr_invoice == None:
 
-                for r in recurr_invoice:
-                    total_discount_recurringinvoice = Fin_Recurring_Invoice_Items.objects.filter(RecInvoice_id=r.id).aggregate(total_discount_recurringinvoice=Sum('discount'))['total_discount_recurringinvoice'] or 0
+                total_discount_recurringinvoice = 0  
+
             else:
-                total_discount_recurringinvoice = 0    
+
+                total_discount_recurringinvoice = 0
+                
+                for r in recurr_invoice:
+                    total_discount_recurringinvoices = Fin_Recurring_Invoice_Items.objects.filter(RecInvoice_id=r.id).aggregate(total_discount_recurringinvoice=Sum('discount'))['total_discount_recurringinvoice'] or 0
+                    total_discount_recurringinvoice += float(total_discount_recurringinvoices)    
             
             total_discount_paid = int(total_discount_invoice) + int(total_discount_recurringinvoice)
 
@@ -53528,20 +53559,30 @@ def fin_profitloss_mail(request):
 
         invoice = Fin_Invoice.objects.filter(Company_id=cmp)
 
-        if invoice:
-            for i in invoice:
-                total_discount_invoice = Fin_Invoice_Items.objects.filter(Invoice_id=i.id).aggregate(total_discount_invoice=Sum('discount'))['total_discount_invoice'] or 0
-        else:
+        if invoice == None:
+
             total_discount_invoice = 0
+            
+        else:
+
+            total_discount_invoice = 0
+            for i in invoice:
+                total_discount_invoices = Fin_Invoice_Items.objects.filter(Invoice_id=i.id).aggregate(total_discount_invoice=Sum('discount'))['total_discount_invoice'] or 0
+                total_discount_invoice += float(total_discount_invoices)
 
         recurr_invoice = Fin_Recurring_Invoice.objects.filter(Company_id=cmp)
 
-        if recurr_invoice:
+        if recurr_invoice == None:
 
-            for r in recurr_invoice:
-                total_discount_recurringinvoice = Fin_Recurring_Invoice_Items.objects.filter(RecInvoice_id=r.id).aggregate(total_discount_recurringinvoice=Sum('discount'))['total_discount_recurringinvoice'] or 0
+            total_discount_recurringinvoice = 0  
+
         else:
-            total_discount_recurringinvoice = 0    
+
+            total_discount_recurringinvoice = 0
+            
+            for r in recurr_invoice:
+                total_discount_recurringinvoices = Fin_Recurring_Invoice_Items.objects.filter(RecInvoice_id=r.id).aggregate(total_discount_recurringinvoice=Sum('discount'))['total_discount_recurringinvoice'] or 0
+                total_discount_recurringinvoice += float(total_discount_recurringinvoices)    
         
         total_discount_paid = int(total_discount_invoice) + int(total_discount_recurringinvoice)
 
@@ -53648,22 +53689,31 @@ def horizontal_profit_loss(request):
 
             recurr_invoice = Fin_Recurring_Invoice.objects.filter(Company_id=cmp,start_date__range=(start_date, end_date))
 
-            if recurr_invoice:
+            if recurr_invoice == None:
 
-                for r in recurr_invoice:
-                    total_recurring_discount = Fin_Recurring_Invoice_Items.objects.filter(RecInvoice_id=r.id).aggregate(total_discount_recurringinvoice=Sum('discount'))['total_discount_recurringinvoice'] or 0
+                total_recurring_discount = 0
+
             else:
                 total_recurring_discount = 0
+
+                for r in recurr_invoice:
+                    total_recurring_discounts = Fin_Recurring_Invoice_Items.objects.filter(RecInvoice_id=r.id).aggregate(total_discount_recurringinvoice=Sum('discount'))['total_discount_recurringinvoice'] or 0
+                    total_recurring_discount += float(total_recurring_discounts)
 
             total_indirect_income = int(total_bill_discount) + int(total_recurring_discount)
 
             invoice = Fin_Invoice.objects.filter(Company_id=cmp,invoice_date__range=(start_date, end_date))
 
-            if invoice:
-                for i in invoice:
-                    total_discount_invoice = Fin_Invoice_Items.objects.filter(Invoice_id=i.id).aggregate(total_discount_invoice=Sum('discount'))['total_discount_invoice'] or 0
+            if invoice == None:
+
+                total_discount_invoice = 0
+                
             else:
                 total_discount_invoice = 0
+
+                for i in invoice:
+                    total_discount_invoices = Fin_Invoice_Items.objects.filter(Invoice_id=i.id).aggregate(total_discount_invoice=Sum('discount'))['total_discount_invoice'] or 0
+                    total_discount_invoice += float(total_discount_invoices)
 
             total_discount_paid = int(total_discount_invoice) + int(total_recurring_discount)
 
@@ -53722,22 +53772,31 @@ def horizontal_profit_loss(request):
 
     recurr_invoice = Fin_Recurring_Invoice.objects.filter(Company_id=cmp)
 
-    if recurr_invoice:
+    if recurr_invoice == None:
 
-        for r in recurr_invoice:
-            total_recurring_discount = Fin_Recurring_Invoice_Items.objects.filter(RecInvoice_id=r.id).aggregate(total_discount_recurringinvoice=Sum('discount'))['total_discount_recurringinvoice'] or 0
+        total_recurring_discount = 0
+
     else:
         total_recurring_discount = 0
+
+        for r in recurr_invoice:
+            total_recurring_discounts = Fin_Recurring_Invoice_Items.objects.filter(RecInvoice_id=r.id).aggregate(total_discount_recurringinvoice=Sum('discount'))['total_discount_recurringinvoice'] or 0
+            total_recurring_discount += float(total_recurring_discounts)
 
     total_indirect_income = int(total_bill_discount) + int(total_recurring_discount)
 
     invoice = Fin_Invoice.objects.filter(Company_id=cmp)
 
-    if invoice:
-        for i in invoice:
-            total_discount_invoice = Fin_Invoice_Items.objects.filter(Invoice_id=i.id).aggregate(total_discount_invoice=Sum('discount'))['total_discount_invoice'] or 0
+    if invoice == None:
+
+        total_discount_invoice = 0
+        
     else:
         total_discount_invoice = 0
+
+        for i in invoice:
+            total_discount_invoices = Fin_Invoice_Items.objects.filter(Invoice_id=i.id).aggregate(total_discount_invoice=Sum('discount'))['total_discount_invoice'] or 0
+            total_discount_invoice += float(total_discount_invoices)
 
     total_discount_paid = int(total_discount_invoice) + int(total_recurring_discount)
 
@@ -53890,24 +53949,33 @@ def horizontal_profitloss_mail(request):
 
         total_bill_discount = Fin_Purchase_Bill_Item.objects.filter(company_id=cmp).aggregate(total_bill_discount=Sum('discount'))['total_bill_discount'] or 0
 
-        recurr_invoice = Fin_Recurring_Invoice.objects.filter(Company_id=cmp)
+        recurr_invoice = Fin_Recurring_Invoice.objects.filter(Company_id=cmp,start_date__range=(start_date, end_date))
 
-        if recurr_invoice:
+        if recurr_invoice == None:
 
-            for r in recurr_invoice:
-                total_recurring_discount = Fin_Recurring_Invoice_Items.objects.filter(RecInvoice_id=r.id).aggregate(total_discount_recurringinvoice=Sum('discount'))['total_discount_recurringinvoice'] or 0
+            total_recurring_discount = 0
+
         else:
             total_recurring_discount = 0
 
+            for r in recurr_invoice:
+                total_recurring_discounts = Fin_Recurring_Invoice_Items.objects.filter(RecInvoice_id=r.id).aggregate(total_discount_recurringinvoice=Sum('discount'))['total_discount_recurringinvoice'] or 0
+                total_recurring_discount += float(total_recurring_discounts)
+
         total_indirect_income = int(total_bill_discount) + int(total_recurring_discount)
 
-        invoice = Fin_Invoice.objects.filter(Company_id=cmp)
+        invoice = Fin_Invoice.objects.filter(Company_id=cmp,invoice_date__range=(start_date, end_date))
 
-        if invoice:
-            for i in invoice:
-                total_discount_invoice = Fin_Invoice_Items.objects.filter(Invoice_id=i.id).aggregate(total_discount_invoice=Sum('discount'))['total_discount_invoice'] or 0
+        if invoice == None:
+
+            total_discount_invoice = 0
+                
         else:
             total_discount_invoice = 0
+
+            for i in invoice:
+                total_discount_invoices = Fin_Invoice_Items.objects.filter(Invoice_id=i.id).aggregate(total_discount_invoice=Sum('discount'))['total_discount_invoice'] or 0
+                total_discount_invoice += float(total_discount_invoices)
 
         total_discount_paid = int(total_discount_invoice) + int(total_recurring_discount)
 
@@ -53954,3 +54022,5 @@ def horizontal_profitloss_mail(request):
         messages.success(request, 'Report has been shared via email successfully..!')
         return redirect('horizontal_profitloss')
     return redirect('horizontal_profitloss')
+
+# End
